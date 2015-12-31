@@ -17,7 +17,7 @@ outpath = '.'
 
 for k in os.listdir('.'):
   if k.endswith('.eml'):
-    print 'Parsing: ', k
+    print 'Parsing: %s' % k
 
     m = eml_parser.decode_email(k, include_attachment_data=True)
 
@@ -34,4 +34,3 @@ for k in os.listdir('.'):
         a_out.write(base64.b64decode(a['raw']))
 
     print
-
