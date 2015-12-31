@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import base64
 import json
@@ -10,7 +12,8 @@ try:
 except:
     os.mkdir(json_dir)
 
-except_cnt = 0
+except1_cnt = 0
+except2_cnt = 0
 
 for k in os.listdir('.'):
     if k.endswith('.eml'):
@@ -18,7 +21,7 @@ for k in os.listdir('.'):
         try:
             m = eml_parser.decode_email(k, include_attachment_data=True)
         except:
-            except_cnt += 1
+            except1_cnt += 1
             continue
 
         output_file = json_dir+k[:-4]+'.json'
@@ -35,6 +38,10 @@ for k in os.listdir('.'):
 
         data = {'datetime':datetime,'attachments':attachments}
         with open(output_file, 'w') as fp:
-            json.dump(data, fp)
+            try:
+                json.dump(data, fp)
+            except:
+                except2_cnt += 1
 
-print except_cnt
+print except1_cnt
+print except2_cnt
